@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is used to create bean. It will be used leater while creating 
+	context -->
+	
+	<!-- to use annotation configuration add context, change xsi and add annatation-config -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	 xmlns:context = "http://www.springframework.org/schema/context"
+	 xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<!-- add this to enable annotations, by default annotations are disabled -->
+	<!-- EVEN IF BEANS ARE CONFIGURED BY ANNOTATION I MUST REGISTER THEM IN XML FILE!! -->
+	
+	<context:annotation-config/>
+	
+	<!-- if i use @Required annotation I must add 'required' properties in XML
+	otherwise i will get fatal error -->
+	<bean id="req" class="com.withannotations.ReqiredExample">
+		<property name="val1" value="value 1"></property>
+		<property name="val2" value="value 2"></property>
+	</bean>
+	
+</beans>

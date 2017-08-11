@@ -5,6 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.noannotations.*;
 import com.noannotationsDI.*;
+import com.withannotations.*;
 
 public class MyMain {
 
@@ -61,6 +62,15 @@ public class MyMain {
 		cex.getExampleMap();
 		cex.getExampleProp();
 		cex.getExampleSet();
+		/*
+		 * Spring configuration with annotations
+		 */
+		
+		// SPRAWDè CZY MOØNA DWA RAZY TWORZY∆ KONTEX CZY NIE LEPIEJ DODA∆ ANNOTACJE DO JUZ ISTNIEJACEGO
+		ApplicationContext context2 = new ClassPathXmlApplicationContext("myspringConfigAnnotations.xml");
+		ReqiredExample req = (ReqiredExample) context2.getBean("req");
+		System.out.println(req.getVal1());
+		System.out.println(req.getVal2());
 	}
 
 }
