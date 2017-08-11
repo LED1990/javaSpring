@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is used to create bean. It will be used leater while creating 
+	context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	default-init-method="init" default-destroy-method="destroy">
+	<!-- IF U WANT TO USE INIT/DESTROY METHODs FOR MULTIPLE BEANS U CAN USE 
+		default-init-method and default-destroy-method -->
+
+
+	<!-- IF U WANT TO USE INIT/DESTROY METHODs FOR MULTIPLE BEANS U CAN USE 
+		default-init-method and default-destroy-method -->
+
+	<!-- First bean created. You must pass name of the class which will be bean -->
+	<!-- id - unique for every bean always use name - use or not, with id creates 
+		unique bean lazy-init - if true bean will be created when requested init-method, 
+		destroy-method - methods called when creating and destroying bean -->
+	<bean id="helloworld" class="com.noannotations.HelloWorld">
+		<!-- property can be used to set default values for fields in class it 
+			corresponds to setters so you must create setters methods CHECK OTHER PROPERTIES! -->
+		<property name="msg" value="Hello world value"></property>
+		<constructor-arg type="String"
+			value="Text passed to constructor via configuration file"></constructor-arg>
+
+	</bean>
+
+	<!-- ============================== inheritance =============================================================== -->
+	<bean id="pt" name="parent" class="com.noannotations.ParentBean">
+		<property name="val1" value="parent val1"></property>
+		<property name="val2" value="parent val2"></property>
+	</bean>
+	<bean id="ch" name="child" parent="pt" class="com.noannotations.ChildBean">
+		<property name="val1" value="child val1"></property>
+		<property name="val3" value="child val3"></property>
+	</bean>
+	<!-- I can create template BEANS!!! beans without class but with properties 
+		which can be inherited! exmaple to create template for other beans use abstract 
+		property -->
+	<bean id="temp" name="templateBean" abstract="true">
+		<property name="pro1" value="temp val1"></property>
+		<property name="pro2" value="temp val2"></property>
+	</bean>
+	<bean id="ch2" class="com.noannotations.ChildBeanAbstract" parent="temp">
+		<property name="childField" value="abstract parent example"></property>
+	</bean>
+	<!-- =============================== Dependacy injection ======================================================= -->
+	<!-- REF - for object references VALUE - for primitives -->
+
+	<bean id="indep" class="com.noannotationsDI.Independent"
+		lazy-init="true">
+		<property name="msg" value="indep msg"></property>
+	</bean>
+	<!-- to use DI via constructor use ref property os constructor-arg -->
+	<bean id="dep" class="com.noannotationsDI.Dependent" lazy-init="true">
+		<constructor-arg ref="indep"></constructor-arg>
+	</bean>
+	<!-- to pass value to constructor use VALUE to DI use REF if constructor 
+		accepts many arguments is good to use index if dont use index arguments will 
+		be applied from top to bottom order in XML -->
+	<bean id="dep2" class="com.noannotationsDI.Dependent" lazy-init="true">
+		<constructor-arg index="1" value="index 1"></constructor-arg>
+		<constructor-arg index="0" value="index 0"></constructor-arg>
+		<constructor-arg index="2" ref="indep"></constructor-arg>
+	</bean>
+	<!-- Setter DI, in this case use property and ref -->
+	<bean id="dep3" class="com.noannotationsDI.DependentSetter"
+		lazy-init="true">
+		<property name="indep" ref="indep"></property>
+	</bean>
+	<!-- ============================ Collections ================================================================== -->
+	<bean id="col" class="com.noannotations.CollectionsExample" lazy-init="true">
+		<property name="exampleList">
+			<list>
+				<value>VAL1</value>
+				<value>VAL2</value>
+				<value>VAL3</value>
+				<value>VAL1</value>
+			</list>
+		</property>
+		<property name="exampleSet">
+			<set>
+				<value>VAL1</value>
+				<value>VAL2</value>
+				<value>VAL3</value>
+				<value>VAL1</value>
+			</set>
+		</property>
+		<property name="exampleMap">
+			<map>
+				<entry key="1" value="VAL1"></entry>
+				<entry key="2" value="VAL2"></entry>
+				<entry key="3" value="VAL3"></entry>
+				<entry key="4" value="VAL4"></entry>
+			</map>
+		</property>
+		<property name="exampleProp">
+			<props>
+				<prop key="one">Val1</prop>
+				<prop key="two">Val1</prop>
+				<prop key="three">Val1</prop>
+				<prop key="four">Val1</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>
