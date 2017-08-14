@@ -3,6 +3,7 @@ package com.mymain;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.aop.*;
 import com.noannotations.*;
 import com.noannotationsDI.*;
 import com.withannotations.*;
@@ -66,11 +67,21 @@ public class MyMain {
 		 * Spring configuration with annotations
 		 */
 		
-		// SPRAWDè CZY MOØNA DWA RAZY TWORZY∆ KONTEX CZY NIE LEPIEJ DODA∆ ANNOTACJE DO JUZ ISTNIEJACEGO
+		// SPRAWDè CZY MOØNA DWA RAZY TWORZY∆ KONTEX CZY NIE LEPIEJ DODA∆ ANNOTACJE DO JUZ ISTNIEJACEGO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		
 		ApplicationContext context2 = new ClassPathXmlApplicationContext("myspringConfigAnnotations.xml");
 		ReqiredExample req = (ReqiredExample) context2.getBean("req");
 		System.out.println(req.getVal1());
 		System.out.println(req.getVal2());
+		
+		/*
+		 * AOP testing with XML configuration!
+		 */
+		ApplicationContext context3 = new ClassPathXmlApplicationContext("aopconfig.xml");
+		MyBean mb = (MyBean) context3.getBean("forAop");
+		mb.forAnnotations();
+		mb.testMethod();
+		
 	}
 
 }

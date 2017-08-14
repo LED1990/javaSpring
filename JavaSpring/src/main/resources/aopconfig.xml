@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+   http://www.springframework.org/schema/aop 
+   http://www.springframework.org/schema/aop/spring-aop-4.0.xsd "
+   xmlns:context="http://www.springframework.org/schema/context">
+   
+   <!-- THIS ENABLES ANNOTATIONS FOR ASPECTS	 -->
+   <aop:aspectj-autoproxy/>
+   <bean id="ann"  class="com.aop.AnnotationsBean"></bean>
+  	<!-- bean definition & AOP specific configuration -->
+	<bean id="forAop" name="bean"  class="com.aop.MyBean"></bean>
+	<bean id="aop" name="AopDefinitions"  class="com.aop.AopDefinitions"></bean>
+	
+
+	<aop:config>
+		<aop:aspect id="myAspect" ref="aop">
+
+			<!-- expression here we put expressions which points to methods for aspects! 
+				it can be one method, all methods in class or even all methods in package -->
+			<aop:pointcut expression="execution(public * com.aop.MyBean.testMethod(..))" id="point1" />
+			<!-- aop methods must point to pointcut -->
+			<aop:before method="doBefore" pointcut-ref="point1"/>
+			<aop:after method="doAfter" pointcut-ref="point1"/>
+			<aop:after-returning method="doAfterRet" pointcut-ref="point1"/>
+			<aop:around method="doAround" pointcut-ref="point1"/>
+		</aop:aspect>
+	</aop:config>
+</beans>
