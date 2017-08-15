@@ -9,10 +9,10 @@
    
    <!-- THIS ENABLES ANNOTATIONS FOR ASPECTS	 -->
    <aop:aspectj-autoproxy/>
-   <bean id="ann"  class="com.aop.AnnotationsBean"></bean>
+   <bean id="ann"  class="com.aop.AnnotationsBean" lazy-init="true"></bean>
   	<!-- bean definition & AOP specific configuration -->
-	<bean id="forAop" name="bean"  class="com.aop.MyBean"></bean>
-	<bean id="aop" name="AopDefinitions"  class="com.aop.AopDefinitions"></bean>
+	<bean id="forAop" name="bean"  class="com.aop.MyBean" lazy-init="true"></bean>
+	<bean id="aop" name="AopDefinitions"  class="com.aop.AopDefinitions" lazy-init="true"></bean>
 	
 
 	<aop:config>

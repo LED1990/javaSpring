@@ -15,8 +15,9 @@ public class MyMain {
 		/*
 		 * first create context, 
 		 * ClassPath... loads beans from configuration file
+		 * to one context I can provide multiple XML files!!!
 		 */
-		ApplicationContext context = new ClassPathXmlApplicationContext("myspringConfig.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("myspringConfig.xml","myspringConfigAnnotations.xml","aopconfig.xml");
 		/*
 		 * second, use context to get bean (getBean(id of bean from configuration file))
 		 * cast object to proper class and now I can use this object
@@ -65,20 +66,24 @@ public class MyMain {
 		cex.getExampleSet();
 		/*
 		 * Spring configuration with annotations
-		 */
-		
+		 */		
 		// SPRAWD CZY MO¯NA DWA RAZY TWORZYÆ KONTEX CZY NIE LEPIEJ DODAÆ ANNOTACJE DO JUZ ISTNIEJACEGO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		
-		ApplicationContext context2 = new ClassPathXmlApplicationContext("myspringConfigAnnotations.xml");
-		ReqiredExample req = (ReqiredExample) context2.getBean("req");
+		//ApplicationContext context2 = new ClassPathXmlApplicationContext("myspringConfigAnnotations.xml");
+		//ReqiredExample req = (ReqiredExample) context2.getBean("req");
+		ReqiredExample req = (ReqiredExample) context.getBean("req");
 		System.out.println(req.getVal1());
 		System.out.println(req.getVal2());
+		//ClassB myB = (ClassB) context2.getBean("classB");
+		ClassB myB = (ClassB) context.getBean("classB");
+		System.out.println("annotations with scna component in XML ->"+myB.msgFromA());
 		
 		/*
 		 * AOP testing with XML configuration!
 		 */
-		ApplicationContext context3 = new ClassPathXmlApplicationContext("aopconfig.xml");
-		MyBean mb = (MyBean) context3.getBean("forAop");
+		//ApplicationContext context3 = new ClassPathXmlApplicationContext("aopconfig.xml");
+		//MyBean mb = (MyBean) context3.getBean("forAop");
+		MyBean mb = (MyBean) context.getBean("forAop");
 		mb.forAnnotations();
 		mb.testMethod();
 		

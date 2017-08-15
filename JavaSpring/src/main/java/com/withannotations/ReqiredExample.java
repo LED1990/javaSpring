@@ -2,6 +2,9 @@ package com.withannotations;
 
 import org.springframework.beans.factory.annotation.Required;
 
+/*
+ * in this case I dont use @Component annotation so I must rgister bean in XML file
+ */
 public class ReqiredExample {
 	private String val1;
 	private String val2;

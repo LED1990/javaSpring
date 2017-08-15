@@ -14,13 +14,17 @@
    http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 	
 	<!-- add this to enable annotations, by default annotations are disabled -->
-	<!-- EVEN IF BEANS ARE CONFIGURED BY ANNOTATION I MUST REGISTER THEM IN XML FILE!! -->
-	
+	<!-- EVEN IF BEANS ARE CONFIGURED BY ANNOTATION I MUST REGISTER THEM IN XML FILE!! (if I dont use component scan) -->
+	<!-- use only annotations-config if I want to register beans in XML - even if using annotations -->
 	<context:annotation-config/>
+	
+	<!-- use component scan to tell spring where to look for bean with annotations! -->
+	<context:component-scan base-package="com.withannotations"></context:component-scan>
+	
 	
 	<!-- if i use @Required annotation I must add 'required' properties in XML
 	otherwise i will get fatal error -->
-	<bean id="req" class="com.withannotations.ReqiredExample">
+	<bean id="req" class="com.withannotations.ReqiredExample" lazy-init="true">
 		<property name="val1" value="value 1"></property>
 		<property name="val2" value="value 2"></property>
 	</bean>
