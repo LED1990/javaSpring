@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	default-init-method="init" default-destroy-method="destroy">
+	
+	<!-- register spring beans -->
+	
+	<!-- serice bean - service class -->
+	<bean id = "es" name="emailService" lazy-init="true" class="com.jdevdispring.EmailService"></bean>
+	
+	<!-- consumer -->
+	<bean id = "xc" name="XMLconsumer" lazy-init="true" class="com.jdevdispring.XMLconsumer">
+		<!-- if constructor based DI use constructor property and if passing Object use ref else use value-->
+		<constructor-arg ref="es"></constructor-arg>
+		
+		<!-- if setter based DI use property -->
+		<!-- 
+		<property name="sm" ref="xc"></property>
+		 -->
+		 
+	</bean>
+
+</beans>

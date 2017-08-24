@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is used to create bean. It will be used leater while creating 
+	context -->
+	
+	<!-- to use annotation configuration add context, change xsi and add annatation-config -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	 xmlns:context = "http://www.springframework.org/schema/context"
+	 xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+   >
+	
+	<!-- add this to enable annotations, by default annotations are disabled -->
+	<!-- EVEN IF BEANS ARE CONFIGURED BY ANNOTATION I MUST REGISTER THEM IN XML FILE!! (if I dont use component scan) -->
+	<!-- use only annotations-config if I want to register beans in XML - even if using annotations -->
+	<context:annotation-config/>
+	
+	<!-- use component scan to tell spring where to look for bean with annotations!
+	<context:component-scan base-package="com.withannotations"></context:component-scan>
+	 -->
+	
+	<!-- initialization of Employee bean
+	this bean is Employee (name of class) type - by Type autowiring! -->
+	<bean name="emp" id = "e1" class="com.jdevautowire.Employee" lazy-init="true">
+		<property name="name" value="without/with @Autowire annotation. Wiring by XML file"></property>
+	</bean>
+	<!-- !!!!!!!!!!! IF I AM USING SOMEWHERE BYTYPE AUTOWIRING I CANNOT HAVE TWO BEANS OF THE SAME CLASS!!!!!!!!!!
+	OR ADD
+	autowire-candidate="false" - bean will be skipped while autowiring
+	
+	<bean name="emp2" id = "e2" class="com.jdevautowire.Employee" lazy-init="true" >
+		<property name="name" value="with @Autowire annotation."></property>
+	</bean>
+	-->
+	
+	<!-- example autowire ByNanme 
+	Spring looks at bean properties with autowire byName property and than searches for bean with the same name to wire
+	NO ANNOTATIONS USED IN THIS EXAMPLE-->
+	<bean name="byname" class="com.jdevautowire.EmployeeService" autowire="byName" lazy-init="true"></bean>
+	
+	<!-- example autowire ByType 
+	Spring looks at bean properties and and checks type of property, than look for other bean type (class type - Employee in my example) the same as type of property if finds, wiring
+	NO ANNOTATIONS USED IN THIS EXAMPLE-->
+	<bean name="bytype" class="com.jdevautowire.EmployeeService" autowire="byType" lazy-init="true"></bean>	
+	
+	<!-- example autowire by constructor -->
+	<!-- similar to by type but int this case type of bean is taken from constructor -->
+	<bean name="byconstruct" class="com.jdevautowire.EmployeeService" autowire="constructor" lazy-init="true"></bean>
+	
+	
+	<!-- by type with @Autowire annotation
+	I also could use component-scann to avoid bean registration in XML file but I want to have all beans in one place -->	
+	<bean id="type" class="com.jdevautowire.ByTypeExample" lazy-init="true"></bean>
+	<bean id = "byConstr" class = "com.jdevautowire.ByConstExample" lazy-init="true"></bean>
+	
+</beans>
