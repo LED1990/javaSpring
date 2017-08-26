@@ -6,6 +6,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.aop.*;
+import com.jdevaop.*;
 import com.jdevautowire.*;
 import com.jdevdi.*;
 import com.jdevdispring.*;
@@ -105,13 +106,13 @@ public class MyMain {
 		 * DI with Spring - based on journalDev tutorial
 		 */
 		//first create context and initialize with proper class - below for XML configuration
-		ApplicationContext context2 = new ClassPathXmlApplicationContext("jdevdispringConfig.xml","jdevdispringAA.xml","jdevautowiring.xml");
+		ApplicationContext context2 = new ClassPathXmlApplicationContext("jdevdispringConfig.xml","jdevautowiring.xml","jdevaop.xml");
 		//now when u have context u can get bean
 		XMLconsumer xmlc = (XMLconsumer) context2.getBean("xc");
 		xmlc.displayMessage("example email msg", "test@reciver");
 	
-		AAconsumer ac = (AAconsumer) context2.getBean("ac");
-		ac.displayMessage("annotations example", "my@annotations.com");
+		//AAconsumer ac = (AAconsumer) context2.getBean("ac");
+		//ac.displayMessage("annotations example", "my@annotations.com");
 		
 		/*
 		 * Autowiring examples
@@ -133,6 +134,7 @@ public class MyMain {
 		ByConstExample e5 = (ByConstExample) context2.getBean("byConstr");
 		System.out.println("@Autowire by constructor -------> "+ e5.getEmp().getName());
 		
+	
 		
 		((AbstractApplicationContext) context2).close();//close context if not needed
 	}

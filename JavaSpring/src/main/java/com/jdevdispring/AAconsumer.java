@@ -14,15 +14,15 @@ public class AAconsumer {
 	 * also setter or constructor DI is available
 	 */
 
-	@Autowired()
-	public AAconsumer(@Qualifier("aaes")AAemailService aae) {
-		this.aae = aae;
-	}
+	//@Autowired()
+	//public AAconsumer(@Qualifier("aaes")AAemailService aae) {
+	//	this.aae = aae;
+	//}
 	
 	public AAemailService getAae() {
 		return aae;
 	}
-	//@Autowired
+	@Autowired
 	public void setAae(AAemailService aae) {
 		this.aae = aae;
 	}
